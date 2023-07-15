@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&family=Roboto:ital,wght@0,300;0,400;1,700&display=swap');
+
+* {
+    margin: 0;
+    font-family: 'Raleway', sans-serif;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: lightgray
+}
+
+nav {
+    display: flex;
+    justify-content: flex-start;
+    background-color: #F4F3F3;
+    padding: 10px;
+    width: 100%;
+    /* position: fixed; */
+    /* margin-top: -50px; */
+    
+}
+
+nav img {
+    height: 3rem; 
+    margin-left: 50px;  
+}
+
+.nav-menu {
+    display: flex;
+}
+
+.btnContactBurger{
+    display: none;
+}
+
+nav ul li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style: none; 
+}
+nav ul li:first-child {
+    font-weight: bold;
+}
+
+nav ul li:hover {
+    background-color: #bbdeec;
+    cursor: pointer;
+    border-radius: 20px;
+}
+nav ul li a {
+    
+    color: black;  
+}
+nav .btn-contact {
+    padding: 8px;
+   
+    border-radius: 7px;
+    color: aliceblue;
+    background-color: black;
+    margin: auto;
+    margin-right: 20px;
+}
+.hamburgerMenu {
+    display: none;
+    cursor: pointer;
+}
+
+#hamburgerMenu-item {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: black;
+    
+}
+a{
+    margin: 20px;
+    text-decoration: none;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    margin-top: 50px;
+}
+
+.wrapper-form {
+    margin: 50px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.wrapper-form h1 {
+    margin: 20px;
+}
+
+form {
+
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    
+}
+
+label {
+    margin: 10px;
+}
+
+input {
+    border-radius: 10px;
+    border-style: none;
+    height: 40px;
+    margin: 10px;
+  
+}
+
+.wrapper-date {
+    display: flex;
+}
+
+.date-form1 {
+    flex: 1;    
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+.date-form2 {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.description {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+
+}
+textarea {
+    border-radius: 10px;
+}
+.radio-button {
+    display: flex;
+    align-items: center;
+}
+
+.upload-images {
+    border-radius: 10px;
+    display: flex;
+    background-color: rgb(245, 253, 251);
+    margin-bottom: 20px;
+    margin-top: 10px;
+
+}
+.upload-images label {
+    margin: 0;
+}
+.upload-images label p {
+    background-color: rgb(178, 204, 212);
+    padding: 10px;
+    font-weight: bold;
+    border-radius: 10px 0px 0px 10px;
+}
+
+.btn-submit {
+    padding: 10px;
+    background-color: black;
+    color: white;
+     border-radius: 10px;
+      border-style: none;
+      cursor: pointer;
+}
+

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/testimonial.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Testimonial</title>
+</head>
+<body>
+    <nav>
+        <img src="./img/logo.png" alt="logo">
+        <ul class="nav-menu">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./addProject.html">My Project</a></li>
+            <li><a href="./testimonial.html">Testimonial</a></li>
+            <li><a class="btnContactBurger" href="./contact.html">Contact</a></li>
+        </ul>
+          <a class="btn-contact" href="./contact.html">Contact</a>
+
+          <div class="hamburgerMenu">
+              <span id="hamburgerMenu-item"></span> 
+              <span id="hamburgerMenu-item"></span> 
+              <span id="hamburgerMenu-item"></span> 
+          </div>
+
+       </nav>
+
+       <div class="container-testimoni">
+        <div class="wrapper-testimoni">
+            <h1>My Testimonials</h1>
+            <div class="container-rating">
+                <button class="btn-rating" onclick="dataFilter(1)">1<i class="fa fa-star"></i></button>
+                <button class="btn-rating" onclick="dataFilter(2)">2<i class="fa fa-star"></i></button>
+                <button class="btn-rating" onclick="dataFilter(3)">3<i class="fa fa-star"></i></button>
+                <button class="btn-rating" onclick="dataFilter(4)">4<i class="fa fa-star"></i></button>
+                <button class="btn-rating" onclick="dataFilter(5)">5<i class="fa fa-star"></i></button>
+                <button class="btn-rating" onclick="allData()">All<i class="fa fa-star"></i></button>  
+            </div>
+            <ul class="testimonial">
+                <!--rendering dom-->
+
+                <!-- <li class="testimonial-item">
+                    <div class="wrapper-testimonial-item">
+                        <img src="https://i.pinimg.com/736x/96/b6/3f/96b63f5e931758d6cdc445f978f90239.jpg" alt="">
+                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veritatis, ratione!</p>
+                        <span>Lorem, ipsum</span>
+                        
+                    </div>
+                </li> -->
+                
+            </ul>
+
+        </div>
+       </div>
+       <script src="./javascript/burgerMenu.js"></script>
+       <script src="./javascript/testimonial.js"></script>
+</body>
+</html>

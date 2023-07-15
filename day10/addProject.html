@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/addMyproject.css">
+    <link rel="stylesheet" href="./css/addMyproject2.css">
+    <title>add Project</title>
+</head>
+<body>
+    <nav>
+        <img src="./img/logo.png" alt="logo">
+        <ul class="nav-menu">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./addProject.html">My Project</a></li>
+            <li><a href="./testimonial.html">Testimonial</a></li>
+            <li><a class="btnContactBurger" href="./contact.html">Contact</a></li>
+        </ul>
+          <a class="btn-contact" href="./contact.html">Contact</a>
+
+          <div class="hamburgerMenu">
+              <span id="hamburgerMenu-item"></span> 
+              <span id="hamburgerMenu-item"></span> 
+              <span id="hamburgerMenu-item"></span> 
+          </div>
+
+       </nav>  
+    <div class="container">
+        <div class="wrapper-form">
+            <h1>Add My Project</h1>
+
+            <form id="form">
+                <label for="">Project Name</label>
+                <input type="text" id="project-name" required> 
+
+                <div class="wrapper-date">
+                    
+                    <div class="date-form1">
+                        <label for="">Start Date</label>
+                        <input type="date" id="start-date" required>
+                    </div>
+                    <div class="date-form2">
+                        <label for="">End Date</label>
+                        <input type="date" id="end-date" required>
+                    </div>
+
+                </div>
+
+                <div class="description">
+                    <label for="">Description</label>
+                    <textarea name="description" id="description" cols="20" rows="5" maxlength="50" required></textarea>
+
+                </div>
+
+                <label for="">Technologi</label>
+                <div class="radio-button">
+                    <label for="nodejs">Node JS</label>
+                    <input type="checkbox" id="nodejs" value="nodejs">
+                    <label for="nodejs">Next JS</label>
+                    <input type="checkbox" id="nextjs" value="nextjs">
+                    <label for="nodejs">React JS</label>
+                    <input type="checkbox" id="reactjs" value="reactjs">
+                    <label for="nodejs">Typescript</label> 
+                    <input type="checkbox" id="typescript" value="typescript">
+                </div>
+                <div class="wrapper-upload">
+                    <p>Upload Image</p>
+                    <div class="upload-images">
+                        <label for="input-blog-image">
+                            <p>Choose</p>
+                        </label>
+                        <input type="file" name="input-blog-image" id="input-blog-image" hidden>
+                    </div>
+    
+                    <button class="btn-submit" type="submit">Submit</button>
+
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+    
+    <div class="myproject-container">
+        <h1>My Project</h1>
+        <ul class="wrapper-myproject" id="wrapper-myproject">
+            
+            <!-- rendering dom -->
+        
+            
+        </ul>
+    </div>
+    <script src="./javascript/addProject.js"></script>
+    <script src="./javascript/burgerMenu.js"></script>
+</body>
+</html>

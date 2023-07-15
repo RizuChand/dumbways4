@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/contact-style.css">
+    <title>Contact</title>
+</head>
+<body>
+    <nav>
+        <img src="./img/logo.png" alt="logo">
+        <ul class="nav-menu">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./addProject.html">My Project</a></li>
+            <li><a href="./testimonial.html">Testimonial</a></li>
+            <li><a class="btnContactBurger" href="./contact.html">Contact</a></li>
+        </ul>
+          <a class="btn-contact" href="./contact.html">Contact</a>
+
+          <div class="hamburgerMenu">
+              <span id="hamburgerMenu-item"></span> 
+              <span id="hamburgerMenu-item"></span> 
+              <span id="hamburgerMenu-item"></span> 
+          </div>
+
+       </nav>  
+    
+       <div class="container">
+
+        <div class="wrapper">
+            <h1>Get In Touch</h1>
+
+            <form id="form">
+                <label for="">Nama</label>
+                <input type="text" id="name-input">
+                <label for="">Email</label>
+                <input type="text" id="email">
+                <label for="">Phone Number</label>
+                <input  id="number">
+                <label for="">Subject</label>
+                <select name="" id="radio-button">
+                    <option >pilih salah satu</option>
+                    <option value="Frontend Depelover">Frontend Develover</option>
+                    <option value="Backend Developer">Backend Developer</option>
+                    <option value="Fullstack Developer">Fullstack Developer</option>
+                    <option value="Devops">Devops</option>
+                    
+                </select>
+
+                <label for="">text area</label>
+                <textarea id="textarea" cols="20" rows="5"></textarea>
+
+                <button type="submit" >Submit</button>
+
+            </form>
+        </div>
+       </div>
+
+       <script src="./javascript/contact.js"></script>
+       <script src="./javascript/burgerMenu.js"></script>
+</body>
+</html>
