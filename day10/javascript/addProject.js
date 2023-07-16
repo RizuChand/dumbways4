@@ -22,6 +22,7 @@ form.addEventListener("submit", (e)=>{
     const valueEndDate = endDate.value;
     const valueDescription = description.value;
     let files = file.files;
+    let rendering = document.querySelector("#rendering");
     let duration = document.innerHTML = `<p>${convertDate(valueEndDate,valueStardate)}</p>`;
     
        const iconNodeJS = '<img src="./img/myProject/node-js.svg" alt="nodejs">';
@@ -59,59 +60,51 @@ form.addEventListener("submit", (e)=>{
 
     blogData.push(schema);
     
-    renderBlog();
-    
-    clearForm();
 
-   console.log(duration);
-    
-
-    
    
+    
+ 
+    renderBlog();
+    clearForm();
+      
+    console.log(schema);
+
+
+
+
 })
 
-
 function renderBlog() {
+       
+    // rendering.innerHTML = "";
+    
+           blogData.forEach((item) => {
+               rendering.innerHTML = `<div class="col mb-4">
+               <div class="card" style="width: 24rem;">
+                   <img  class="card-image" src="${item.files}" class="card-img-top" alt="...">
+                   <div class="card-body">
+                     <h5 class="card-title">${item.valueProjectName}</h5>
+                     <p class="card-text">Some quick example text to build on the card title</p>
+                     <a href="#" class="btn">
+                        ${item.checkNodeJS}
+                     </a>
+                     <a href="#" class="btn">
+                       ${item.checkNextJS}
+    
+                     </a>
+                     <a href="#" class="btn">
+                       ${item.checkReactJS}
+                     </a>
+                     <a href="#" class="btn">
+                       ${item.checkTypescript}
+                     </a>
+                   </div>
+                 </div>
+             </div>`
+           });
+ 
+}
 
-        let parent = document.querySelector("#wrapper-myproject");
-        let h1 = document.createElement("li");
-        
-        
-        for (let x = 0; x < blogData.length; x++) {
-            
-            h1.innerHTML = `<div class="item-card">
-            <div class="fix-image">
-                <img src="${blogData[x].files}" alt="">
-            </div>
-            <div class="text">
-                <h3>${blogData[x].valueProjectName}</h3>
-                <p>${blogData[x].valueDescription}</p>
-            </div>
-            <div class="wrapper-checkbox">
-                <div class="checkbox-item">
-                ${blogData[x].checkNodeJS}
-                ${blogData[x].checkNextJS}
-                ${blogData[x].checkReactJS}
-                ${blogData[x].checkTypescript}
-                </div>
-            </div>
-            <div class="option">
-                <button>Edit</button>
-                <button>Delete</button>
-            </div>
-            <div class="container-duration">
-                <a class="detail-project" href="./detailProject.html">detail project =>=></a>
-                <span class="duration">${blogData[x].duration}</span>    
-            </div>
-         </div>`
-         
-        
-            parent.append(h1);
-            
-            
-        }
-     
-    }
 
 
 function clearForm() {

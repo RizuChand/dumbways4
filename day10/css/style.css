@@ -23,6 +23,7 @@ font-family: 'Poppins', sans-serif;
     background-color: rgb(244, 235, 235);
     
 }
+
 .container-body {
     background-color: white;
     border: 1px solid lightblue;
@@ -32,10 +33,6 @@ font-family: 'Poppins', sans-serif;
 .card-container {
     
     width: 30rem;
-}
-
-.card {
-    
 }
 
 .card-image {

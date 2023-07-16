@@ -1,107 +1,25 @@
-.myproject-container {
-    height: 100%;
-    background-color: rgb(234, 241, 241);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-.myproject-container h1 {
-    margin-top: 30px;
-}
 
-.wrapper-myproject {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    margin: 20px;
-    height: 100%;
-    width: 80%;
-    padding: 50px;
-    list-style: none;
-    
-}
-
-.item-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 20px;
-    background-color: rgb(131, 189, 236);
-    margin: 10px;
-    border: 1px solid lightblue;
-
-}
-
-
-.fix-image img {
-    border-radius: 20px 20px 0px 0px;
-    width: 400px;
-    height: 250px;
-   
-}
-
-.text {
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 20px;
-}
-
-.wrapper-checkbox {
-    gap: 10px;
-    display: flex;
-    margin-bottom: 10px;
-}
-.checkbox-item {
-    display: flex;
-    justify-content: center;
-}
-.checkbox-item img {
-    height: 40px;
-    margin: 5px;;
-}
-
-.option {
-    display: flex;
-    margin: 10px;
-    justify-content: center;
-    width: 90%;
-   
-}
-
-.option button {
-    margin-right:20px;
-    padding: 5px;
-    width: 30%;
-    border-radius: 10px;
-    background-color: black;
-    color: white;
-    border-style: none;
-}
-
-.detail-project {
-    text-decoration: none;
-    margin: 5px;
-    color: black;
-    padding: 5px;
-    border-radius: 5px;
-    padding-left: 7px;
-}
-
-.container-duration{
+.container-myproject {
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    
+    background-color: rgb(214, 223, 223);
     
 }
-.duration {
-    font-size: small;
-    padding-right: 17px;
+.card-container {
+    
+    width: 30rem;
 }
 
+.card-image {
+    width: 24rem;
+    height: 20rem;
+}
+.container-myproject {
+    width: 100%;
+    
+}
+a img {
+    width: 30px;
+}
 @media only screen and (max-width: 480px){
      /*
     navbar responsive
