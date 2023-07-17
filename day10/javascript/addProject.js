@@ -22,7 +22,7 @@ form.addEventListener("submit", (e)=>{
     const valueEndDate = endDate.value;
     const valueDescription = description.value;
     let files = file.files;
-    let rendering = document.querySelector("#rendering");
+    
     let duration = document.innerHTML = `<p>${convertDate(valueEndDate,valueStardate)}</p>`;
     
        const iconNodeJS = '<img src="./img/myProject/node-js.svg" alt="nodejs">';
@@ -67,19 +67,21 @@ form.addEventListener("submit", (e)=>{
     renderBlog();
     clearForm();
       
-    console.log(schema);
+    console.log(blogData);
 
 
 
 
 })
 
+let rendering = document.querySelector("#rendering");
+
 function renderBlog() {
-       
-    // rendering.innerHTML = "";
+    
+    rendering.innerHTML = "";
     
            blogData.forEach((item) => {
-               rendering.innerHTML = `<div class="col mb-4">
+               rendering.innerHTML += `<div class="col-sm-4 mb-4">
                <div class="card" style="width: 24rem;">
                    <img  class="card-image" src="${item.files}" class="card-img-top" alt="...">
                    <div class="card-body">
