@@ -1,0 +1,179 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&family=Roboto:ital,wght@0,300;0,400;1,700&display=swap');
+
+* {
+    margin: 0;
+    font-family: 'Raleway', sans-serif;
+    font-family: 'Roboto', sans-serif;
+}
+
+nav {
+    display: flex;
+    justify-content: flex-start;
+    background-color: #F4F3F3;
+    padding: 10px;
+    
+}
+
+nav img {
+    height: 3rem; 
+    margin-left: 50px;  
+}
+
+.nav-menu {
+    display: flex;
+}
+
+.btnContactBurger{
+    display: none;
+}
+
+nav ul li {
+    display: flex;
+    align-items: center;
+    list-style: none; 
+}
+nav ul li:first-child {
+    font-weight: bold;
+}
+
+nav ul li:hover {
+    background-color: #bbdeec;
+    cursor: pointer;
+    border-radius: 20px;
+}
+nav ul li a {
+    
+    color: black;  
+}
+nav .btn-contact {
+    padding: 8px;
+   
+    border-radius: 7px;
+    color: aliceblue;
+    background-color: black;
+    margin: auto;
+    margin-right: 20px;
+}
+.hamburgerMenu {
+    display: none;
+    cursor: pointer;
+}
+
+#hamburgerMenu-item {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: black;
+    
+}
+a{
+    margin: 20px;
+    text-decoration: none;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #DCE0E4;
+    
+}
+.wrapper {
+    height: 70%;
+    font-weight: bold;
+}
+
+.wrapper h1 {
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin: 30px;
+}
+
+
+label {
+    margin: 10px;
+}
+
+input {
+    border-radius: 10px;
+    border-style: none;
+    width: 400px;
+    padding: 10px;
+}
+select {
+    height: 30px;
+    border-radius: 10px;
+    border-style: none;
+}
+
+textarea {
+    border-radius: 10px;
+    border-style: none;
+}
+form button {
+    padding: 10px;
+    width: 100px;
+    margin: 20px;
+    background-color: black;
+    color: #e6dddc;
+    border-radius: 30px;
+    margin-left: auto;
+}
+
+@media only screen and (max-width: 480px){
+       /*
+    navbar responsive
+    */
+nav {
+    align-items: center;
+    justify-content: space-between;
+}
+nav img {
+    margin-left: 10px;
+}
+
+.btn-contact {
+    display: none;
+}
+.btnContactBurger {
+    display: inline;
+}
+.hamburgerMenu {
+    display: block;
+    cursor: pointer;
+}
+.hamburgerMenu.active #hamburgerMenu-item:nth-child(2){
+    opacity: 0;
+}
+.hamburgerMenu.active #hamburgerMenu-item:nth-child(1){
+    transform: translateY(8px) rotate(45deg);
+}
+.hamburgerMenu.active #hamburgerMenu-item:nth-child(3){
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+.nav-menu {
+    position: fixed;
+    width: 100%;
+    left: 100%;
+    top: 70px;
+    flex-direction: column;
+    transition: 0.3s;
+    background-color: #F4F3F3;
+    
+}
+
+
+.nav-menu.active {
+    width: 100%;
+    left: 0;
+}
+    
+}

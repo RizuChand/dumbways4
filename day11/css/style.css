@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&family=Poppins:ital,wght@0,400;1,300;1,400&display=swap');
+
+* {
+    font-family: 'Montserrat', sans-serif;
+font-family: 'Poppins', sans-serif;
+}
+
+.navbar-brand img {
+    height: 3rem;
+    width: 3rem; 
+    object-fit: contain;
+    margin-left: 50px; 
+}
+
+.nav-item a:hover{
+    background-color: #bbdeec;
+    border-radius: 15px;
+}
+
+.container-profile {
+    height: 100vh;
+    padding: 50px;
+    background-color: rgb(244, 235, 235);
+    
+}
+
+.container-body {
+    background-color: white;
+    border: 1px solid lightblue;
+    border-radius: 10px;
+}
+
+.card-container {
+    
+    width: 30rem;
+}
+
+.card-image {
+    width: 24rem;
+    height: 20rem;
+}
+.container-myproject {
+    width: 100%;
+    
+}
+
+a img {
+    width: 30px;
+}
+@media screen and (max-width: 480px) {
+
+    .container-profile {
+        height: 100%;
+        
+        
+    }
+#card-image {
+    width: 100%;
+}
+.card-container {
+    
+    width: 20rem;
+}
+}
