@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/detailProject.css">
+    <title>My Project</title>
+</head>
+<body>
+    <nav>
+        <img src="/img/logo.png" alt="logo">
+        <ul>
+            <li>Home</li>
+            <li>My Project</li>
+        </ul>
+          <a href="./contact.html">Contact</a>     
+    </nav> 
+    <div class="container">
+
+    </div>
+    <div class="jumbotron">
+        <h1>{{.project.Name}}</h1>
+        <p>{{.ID}}</p>
+        <div class="picture">
+            <img src="/img/myProject/picture.jpg" alt="coding">
+        </div>
+        <div class="duration">
+            <div class="wrapper-info">
+                <h3>Duration</h3>
+                <div>
+                    <img id="logo" src="/img/myProject/calendar-days-solid.svg" alt="calendar">
+                    <span>{{.project.StartDate}} - {{.project.EndDate}} </span>
+                </div>
+                <div>
+                    <img id="logo" src="/img/myProject/clock-solid.svg" alt="clock">
+                    <span>1 month</span>
+                </div>
+
+            </div>
+        </div>
+        <div class="teknologi">
+            <div class="wrapper-info2">
+                <h3>Technologies</h3>
+                <div class="wrapper-item">
+                    <div class="item">
+                        <img id="logo" src="/img/myProject/react.svg" alt="calendar">
+                        <span>React JS</span>
+                    </div>
+    
+                    <div class="item">
+                        <img id="logo" src="/img/myProject/node-js.svg" alt="clock">
+                        <span>Node JS</span>
+                    </div>
+    
+                    
+                </div>
+                <div class="wrapper-item">
+                    <div class="item">
+                        <img id="logo" src="/img/myProject/js.svg" alt="clock">
+                        <span>Javascript</span>
+                    </div>
+    
+                    <div class="item">
+                        <img id="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Socket-io.svg/2048px-Socket-io.svg.png" alt="clock">
+                        <span>Socket IO</span>
+                    </div>
+
+                </div>
+            </div>
+            
+        </div>
+        <article>
+            <p>{{.project.Textareas}}</p>
+        </article>
+
+    </div>
+</body>
+</html>
