@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&family=Roboto:ital,wght@0,300;0,400;1,700&display=swap');
+
+* {
+    margin: 0;
+    font-family: 'Raleway', sans-serif;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+
+.navbar-brand img {
+    height: 3rem;
+    width: 3rem; 
+    object-fit: contain;
+    margin-left: 50px; 
+}
+
+.nav-item a:hover{
+    background-color: #bbdeec;
+    border-radius: 15px;
+}
+
+
+
+.container-form {
+    height: 100vh;
+    margin-top: 50px;
+}
+
+.wrapper-form {
+    margin-bottom: 60px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.wrapper-form h1 {
+    margin: 20px;
+}
+
+form {
+    width: 70%;
+}
+.container-date {
+    width: 100%;
+    height: 100px;
+    margin-top: 0;
+    
+}
+
+label {
+    margin: 10px;
+}
+
+input {
+    border-radius: 10px;
+    border-style: none;
+    height: 40px;
+    margin: 10px;
+  
+}
+
+
+.radio-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.upload-images {
+    border-radius: 10px;
+    display: flex;
+    background-color: rgb(245, 253, 251);
+    margin-bottom: 20px;
+    margin-top: 10px;
+
+}
+.upload-images label {
+    margin: 0;
+    height: 45px;
+}
+.upload-images label p {
+    background-color: rgb(178, 204, 212);
+    padding: 10px;
+    font-weight: bold;
+    border-radius: 10px 0px 0px 10px;
+}
+
+
+
