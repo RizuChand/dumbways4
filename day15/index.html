@@ -35,6 +35,17 @@
               </li>
 
             </ul>
+            {{if .test}}
+            <form class="auth" action="/logout" method="post">
+              <a class="btn btn-outline-dark">"Halo tuan, {{.test}}"</a>
+              <button type="submit" class="btn btn-danger">Logout</button>
+            </form>
+            {{else}}
+            <div class="auth">
+              <a href="/form-register" class="btn btn-primary">Register</a>
+              <a href="/form-login" class="btn btn-danger">Login</a>
+            </div>
+            {{end}}
         
               <a href="/contact" class="btn btn-outline-dark mx-4">Contact</a>
             

@@ -42,8 +42,14 @@
         </div>
       </nav>
       
+      
      <div class="p-5 mt-5 form-login-container">
-        <div class="container bg-dark p-3 w-50 text-center title-login">
+      {{if .flashMessage}}
+       <div class="container w-50 alert alert-primary" role="alert">
+         {{.flashMessage}}
+       </div>
+       {{end}}
+       <div class="container bg-dark p-3 w-50 text-center title-login">
             <h1 class="text-light">Login</h1>
         </div>
         <div class="container p-3 w-50 form-login-wrapper" style="background-color: #d1c9c9;">

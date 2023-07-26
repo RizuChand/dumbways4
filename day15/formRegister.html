@@ -42,7 +42,12 @@
         </div>
       </nav>
       
-     <div class="p-5 mt-5 form-login-container">
+     <div class="p-5 mt-5 form-register-container">
+      {{if .flashMessage}}
+       <div class="container w-50 alert alert-primary" role="alert">
+         {{.flashMessage}}
+       </div>
+       {{end}}
         <div class="container bg-dark p-3 w-50 text-center title-login">
             <h1 class="text-light">Register</h1>
         </div>

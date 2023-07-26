@@ -8,6 +8,8 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/gorilla/sessions"
+	"github.com/labstack/echo-contrib/session"
 	"github.com/labstack/echo/v4"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -29,11 +31,18 @@ type Users struct {
 	Password string
 }
 
+// type UserLoginSession struct {
+// 	isLogin bool
+// 	Name string
+// }
+
 
 func main() {
 
 	config.DatabaseConnection();
 	e := echo.New()
+
+	e.Use(session.Middleware(sessions.NewCookieStore([]byte("capjari"))))
 
 	
 	e.Static("/css", "css")
@@ -60,7 +69,10 @@ func main() {
 	e.POST("/register", register)
 	
 	e.GET("/form-login", formLogin)
+
 	e.POST("/login", login)
+
+	e.POST("/logout",logout)
 	
 
 	e.Logger.Fatal(e.Start("localhost:8000"))
@@ -71,13 +83,25 @@ func main() {
 
 func home(c echo.Context) error {
 	template, err := template.ParseFiles("./index.html")
+	sess, errSess := session.Get("bersesion",c)
 
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
+	if errSess != nil {
+		return c.JSON(http.StatusInternalServerError, err.Error())
+	}
 
+	dataFlash := map[string]interface{}{
+		"flashMessage" : sess.Values["message"],
+		"test" : sess.Values["name"],
 
-	return template.Execute(c.Response(), nil)
+	}
+
+	delete(sess.Values, "message")
+	sess.Save(c.Request(), c.Response())
+
+	return template.Execute(c.Response(), dataFlash)
 }
 func contact(c echo.Context) error {
 	template, err := template.ParseFiles("./contact.html")
@@ -121,8 +145,21 @@ func myProject(c echo.Context) error {
 
 	}
 
+	sess, errSess := session.Get("bersesion",c)
+
+	if errSess != nil {
+		return c.JSON(http.StatusInternalServerError, errSess.Error())
+	}
+
+	dataFlash := map[string]interface{}{
+		"flashMessage" : sess.Values["message"],
+		"test" : sess.Values["name"],
+
+	}
+
 	data := map[string]interface{}{
 		"projects": newDataProject,
+		"dataFlash" : dataFlash,
 	}
 
 	
@@ -273,10 +310,7 @@ func deleteProject(c echo.Context) error {
 func updateProject(c echo.Context) error {
 	id := c.Param("id")
 
-	
-
 	template, _ := template.ParseFiles("./updateProject.html")
-
 
 	dataUpdate := map[string]interface{}{
 		"ID" : id,
@@ -319,12 +353,21 @@ func updateProjectForm(c echo.Context) error {
 
 func formRegister(c echo.Context) error {
 	tmpl, err := template.ParseFiles("./formRegister.html")
+	sess, sessErr := session.Get("bersesion", c)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 	}
+	if sessErr != nil {
+		c.JSON(http.StatusInternalServerError, err.Error())
+	}
+	
+	dataFlash := map[string]interface{}{
+		"flashMessage" : sess.Values["message"],
 
-	return tmpl.Execute(c.Response(),nil)
+	}
+
+	return tmpl.Execute(c.Response(),dataFlash)
 }
 
 func register(c echo.Context) error {
@@ -347,24 +390,37 @@ func register(c echo.Context) error {
 
 	if errQuery != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
-			"message" : "gagal masuk",
+			"message" : "register fail",
 		})
 	}
 
-	return c.Redirect(http.StatusMovedPermanently, "/form-login")
-	
+	return redirectWithMessage(c, "register succsess silahkan login dibawah", "/form-login")
 	
 	
 }
 
 func formLogin(c echo.Context) error {
 	tmpl, err := template.ParseFiles("./formLogin.html")
+	
+	sess, errSess := session.Get("bersesion", c)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	return tmpl.Execute(c.Response(),nil)
+	if errSess != nil {
+		c.JSON(http.StatusInternalServerError, err.Error())
+	}
+
+	dataFlash := map[string]interface{}{
+		"flashMessage" : sess.Values["message"],
+
+	}
+
+	delete(sess.Values, "message")
+	sess.Save(c.Request(), c.Response())
+
+	return tmpl.Execute(c.Response(),dataFlash)
 }
 
 
@@ -388,11 +444,54 @@ func login(c echo.Context) error {
 	errPass := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
 	
 	if errPass != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
-			"message" : "gagal login bag-2",
-		})
+		return redirectWithMessage(c, "login failed", "/form-login")
 	}
+
+	sess, errSess := session.Get("bersesion", c)
+	if errSess != nil {
+		return c.JSON(http.StatusInternalServerError,errSess.Error())
+	}
+
+	sess.Options.MaxAge = 10800 
+	sess.Values["name"] = user.Name
+	sess.Values["email"] = user.Email
+	sess.Values["id"] = user.Id
 	
-	return c.Redirect(http.StatusMovedPermanently, "/")
+	sess.Save(c.Request(), c.Response())
+
+
 	
+	return redirectWithMessage(c, "berhasil login bos", "/")
+	
+}
+
+func logout(c echo.Context) error {
+
+	sess, err := session.Get("bersesion", c)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError,err.Error())
+	}
+	sess.Options.MaxAge = -1
+	sess.Save(c.Request(), c.Response())
+
+	return redirectWithMessage(c, "Logout berhasil!", "/")
+}
+
+
+//fungsi ngeredirect dan pesan
+
+
+func redirectWithMessage(c echo.Context, message string, redirectUrl string) error {
+	sess, errSess := session.Get("bersesion", c)
+
+	if errSess != nil {
+		return c.JSON(http.StatusInternalServerError, errSess.Error())
+	}
+
+	sess.Values["message"] = message
+	sess.Save(c.Request(), c.Response())
+
+	fmt.Println("Pesan :",sess.Values["message"])
+
+	return c.Redirect(http.StatusMovedPermanently, redirectUrl)
 }
