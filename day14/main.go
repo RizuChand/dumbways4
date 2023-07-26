@@ -21,24 +21,6 @@ type Project struct {
 	Image string
 }
 
-// var dataProject = []Project{
-// 	{
-// 		Name:      "user1",
-// 		StartDate: "02/11/2022",
-// 		EndDate:   "03/12/2022",
-// 		Textareas: "Percobaan user satu",
-// 		DataTech:  []string{"nodeJS", "VueJS"},
-// 		Image: "percobaan.jpg",
-// 	},
-// 	{
-// 		Name:      "user2",
-// 		StartDate: "02/11/2022",
-// 		EndDate:   "03/12/2022",
-// 		Textareas: "Percobaan user sdua",
-// 		DataTech:  []string{"nodeJS", "VueJS"},
-// 		Image: "percobaan.jpg",
-// 	},
-// }
 
 func main() {
 
@@ -46,10 +28,6 @@ func main() {
 	e := echo.New()
 
 	
-
-	
-	
-
 	e.Static("/css", "css")
 	e.Static("/img", "img")
 	e.Static("/javascript", "javascript")
@@ -61,12 +39,13 @@ func main() {
 
 	e.GET("/detailproject/:id", detailProject)
 
-	// e.POST("/addmyproject", addMyproject)
+	e.POST("/addmyproject", addMyproject)
 
-	// e.POST("/deleteproject/:id", deleteProject)
+	e.POST("/deleteproject/:id", deleteProject)
 
-	// e.GET("/updateproject/:id", updateProject)
-	// e.POST("updateprojectform/:id", updateProjectForm)
+	e.GET("/updateproject/:id", updateProject)
+
+	e.POST("/updateprojectform", updateProjectForm)
 
 	e.Logger.Fatal(e.Start("localhost:8000"))
 
@@ -185,36 +164,33 @@ func testimonial(c echo.Context) error {
 }
 
 
-// func addMyproject(c echo.Context) error {
-// 	name := c.FormValue("name")
-// 	startDate := c.FormValue("start-date")
-// 	endDate := c.FormValue("end-date")
-// 	textareas := c.FormValue("text-area")
+func addMyproject(c echo.Context) error {
+	
+	name := c.FormValue("name")
+	startDate := c.FormValue("start-date")
+	endDate := c.FormValue("end-date")
+	textareas := c.FormValue("text-area")
+	
+	nodejs := c.FormValue("nodejs")
+	javascript := c.FormValue("javascript")
+	reactjs := c.FormValue("reactjs")
+	typescript := c.FormValue("typescript")
+	
+	imageDefault := "https://cdn.shopify.com/s/files/1/0003/9573/9145/files/2_large.jpg?v=1552901583"
+	
+	dataCheck := []string{nodejs, javascript, reactjs, typescript}
+		
+	dataAdd, err := config.Conn.Exec(context.Background(),"INSERT INTO tb_projects (name, start_date, end_date, description, technologies, image) VALUES ($1, $2, $3, $4,$5,$6)", name, startDate, endDate,textareas,dataCheck,imageDefault)
+	
+	fmt.Println("row affected:", dataAdd.RowsAffected())
 
-// 	nodejs := c.FormValue("nodejs")
-// 	nextjs := c.FormValue("nextjs")
-// 	reactjs := c.FormValue("reactjs")
-// 	typescript := c.FormValue("typescript")
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err.Error())
+	}
 
-// 	image := c.FormValue("image")
-
-// 	dataCheck := []string{nodejs, nextjs, reactjs, typescript}
-
-// 	newProject := Project{
-// 		Name:      name,
-// 		StartDate: startDate,
-// 		EndDate:   endDate,
-// 		Textareas: textareas,
-// 		DataTech:  dataCheck,
-// 		Image : image,
-// 	}
-
-// 	dataProject = append(dataProject, newProject)
-
-// 	fmt.Println(dataProject)
-
-// 	return c.Redirect(http.StatusMovedPermanently, "/myproject")
-// }
+	
+	return c.Redirect(http.StatusMovedPermanently, "/myproject")
+}
 
 
 func getDataById(id int)(Project, error)  {
@@ -242,6 +218,7 @@ func detailProject(c echo.Context) error {
 	idToInt, _ := strconv.Atoi(id)
 
 	template, err := template.ParseFiles("./detailProject.html")
+
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
@@ -259,52 +236,72 @@ func detailProject(c echo.Context) error {
 }
 
 
-// func deleteProject(c echo.Context) error {
-// 	id := c.Param("id")
-// 	idToInt, _ := strconv.Atoi(id)
+func deleteProject(c echo.Context) error {
+	id := c.Param("id")
+	idToInt, err := strconv.Atoi(id)
 
-// 	dataProject = append(dataProject[:idToInt], dataProject[idToInt+1:]...)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err.Error())
+	}
 
-// 	return c.Redirect(http.StatusMovedPermanently, "/myproject")
-// }
+	query := "DELETE FROM tb_projects WHERE id=$1"
+
+	config.Conn.Exec(context.Background(),query,idToInt)
+
+
+	return c.Redirect(http.StatusMovedPermanently, "/myproject")
+}
 
 
 
-// func updateProject(c echo.Context) error {
-// 	id := c.Param("id")
+func updateProject(c echo.Context) error {
+	id := c.Param("id")
 
-// 	template, _ := template.ParseFiles("./updateProject.html")
+	
 
-// 	dataID := map[string]interface{}{
-// 		"ID": id,
-// 	}
-// 	return template.Execute(c.Response(), dataID)
-// }
+	template, _ := template.ParseFiles("./updateProject.html")
 
-// func updateProjectForm(c echo.Context) error {
-// 	id := c.Param("id")
-// 	idToInt, _ := strconv.Atoi(id)
 
-// 	name := c.FormValue("name")
-// 	startDate := c.FormValue("start-date")
-// 	endDate := c.FormValue("end-date")
-// 	textareas := c.FormValue("text-area")
+	dataUpdate := map[string]interface{}{
+		"ID" : id,
+	}
 
-// 	nodejs := c.FormValue("nodejs")
-// 	nextjs := c.FormValue("nextjs")
-// 	reactjs := c.FormValue("reactjs")
-// 	typescript := c.FormValue("typescript")
+	
+	return template.Execute(c.Response(), dataUpdate)
+}
 
-// 	dataCheck := []string{nodejs, nextjs, reactjs, typescript}
+func updateProjectForm(c echo.Context) error {
+	// id := c.Param("id")
+	// idToInt, errorAtoi := strconv.Atoi(id)
 
-// 	dataProject[idToInt].Name = name
-// 	dataProject[idToInt].StartDate = startDate
-// 	dataProject[idToInt].EndDate = endDate
-// 	dataProject[idToInt].Textareas = textareas
-// 	dataProject[idToInt].DataTech = dataCheck
+	// if errorAtoi != nil {
+	// 	c.JSON(http.StatusInternalServerError, errorAtoi.Error())
+	// }
+	ID := c.FormValue("ID")
+	name := c.FormValue("name")
+	startDate := c.FormValue("start-date")
+	endDate := c.FormValue("end-date")
+	textareas := c.FormValue("text-area")
 
-// 	fmt.Println(dataProject[idToInt])
+	nodejs := c.FormValue("nodejs")
+	javascript := c.FormValue("javascript")
+	reactjs := c.FormValue("reactjs")
+	typescript := c.FormValue("typescript")
 
-// 	return c.Redirect(http.StatusMovedPermanently, "/myproject")
+	dataCheck := []string{nodejs, javascript, reactjs, typescript}
 
-// }
+	imageDefault := "https://cdn.shopify.com/s/files/1/0003/9573/9145/files/2_large.jpg?v=1552901583"
+
+
+	dataUpdate, err := config.Conn.Exec(context.Background(),"UPDATE tb_projects SET name=$1, start_date=$2, end_date=$3, description=$4, technologies=$5, image=$6 WHERE id=$7", name, startDate, endDate,textareas,dataCheck,imageDefault,ID)
+	
+	fmt.Println("row affected:", dataUpdate.RowsAffected())
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err.Error())
+	}
+
+
+	return c.Redirect(http.StatusMovedPermanently, "/myproject")
+
+}

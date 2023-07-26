@@ -24,14 +24,14 @@ var dataProject = []Project{
 		StartDate: "02/11/2022",
 		EndDate:   "03/12/2022",
 		Textareas: "Percobaan user satu",
-		DataTech:  []string{"nodeJS", "VueJS"},
+		DataTech:  []string{"nodejs", "reactjs", "javascript"},
 	},
 	{
 		Name:      "user2",
 		StartDate: "02/11/2022",
 		EndDate:   "03/12/2022",
 		Textareas: "Percobaan user sdua",
-		DataTech:  []string{"nodeJS", "VueJS"},
+		DataTech:  []string{"nodejs", "typescript"},
 	},
 }
 
@@ -56,7 +56,7 @@ func main() {
 	e.GET("/updateproject/:id", updateProject)
 	e.POST("updateprojectform/:id", updateProjectForm)
 
-	e.Logger.Fatal(e.Start("localhost:8080"))
+	e.Logger.Fatal(e.Start("localhost:5000"))
 
 }
 

@@ -74,13 +74,13 @@
 
                   <div class="radio-button">
                     <label for="nodejs">Node JS</label>
-                    <input type="checkbox" id="nodejs" value="nodejs" name="nodejs">
-                    <label for="nodejs">Next JS</label>
-                    <input type="checkbox" id="nextjs" value="nextjs" name="nextjs">
+                    <input type="checkbox" id="nodejs" value="NodeJs" name="nodejs">
+                    <label for="nodejs">Javascript</label>
+                    <input type="checkbox" id="nextjs" value="Javascript" name="javascript">
                     <label for="nodejs">React JS</label>
-                    <input type="checkbox" id="reactjs" value="reactjs" name="reactjs">
+                    <input type="checkbox" id="reactjs" value="ReactJs" name="reactjs">
                     <label for="nodejs">Typescript</label> 
-                    <input type="checkbox" id="typescript" value="typescript" name="typescript">
+                    <input type="checkbox" id="typescript" value="Typescript" name="typescript">
                 </div>
 
                 <!-- <div class="wrapper-upload">
@@ -89,7 +89,7 @@
                         <label for="input-blog-image">
                             <p>Choose</p>
                         </label>
-                        <input type="file" name="input-blog-image" id="input-blog-image" hidden>
+                        <input type="file" name="input-blog-image" id="input-blog-image" name="image" hidden>
                     </div>
                 </div> -->
                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -109,37 +109,49 @@
                   <div class="col-sm-4 mb-4">
                     <div class="card" style="width: 24rem;">
                       <div class="d-flex justify-content-between position-absolute m-2">
-                        <form action="/deleteproject/:id" method="post">
+                        <form action="/deleteproject/{{$project.ID}}" method="post">
                           <button class="btn btn-danger m-1">Delete</button>
                         </form>
-                        <form action="/updateproject/:id">
+                        <a href="/updateproject/{{$project.ID}}">
                           <button class="btn btn-primary m-1">Update</button>
-                        </form>
+                        </a>
                       </div>
-                        <img  class="card-image" src="https://anime.atsit.in/id/wp-content/uploads/2022/10/video-peringatan-20-tahun-road-of-naruto-menampilkan-reproduksi-modern-dari-adegan-naruto-terkenal.png" class="card-img-top" alt="...">
+                        <img  class="card-image" src="{{$project.Image}}" class="card-img-top" alt="...">
                         <div class="card-body">
-                          <a href="/detailproject/{{$index}}" style="text-decoration: none; color: black;"><h5 class="card-title">{{$project.Name}}</h5></a>
+                          <a href="/detailproject/{{$project.ID}}" style="text-decoration: none; color: black;"><h5 class="card-title">{{$project.Name}}</h5></a>
                           <p class="card-text">{{$project.Textareas}}</p>
-                          
+
                           <div class="container-tech">
                             {{ range $index, $dataa := $project.DataTech }}
                             <a href="#" class="btn">
-                             {{if eq $dataa "nodejs"}}
+
+                             {{if eq $dataa "NodeJs"}}
                              <img src="./img/myProject/node-js.svg" alt="" srcset="">
+                             
                               {{end}}
-                             {{if eq $dataa "reactjs"}}
+
+                             {{if eq $dataa "ReactJs"}}
                              <img src="./img/myProject/react.svg" alt="" srcset="">
+                             
+
                              {{end}}
-                             {{if eq $dataa "javascript"}}
+
+                             {{if eq $dataa "Javascript"}}
                              <img src="./img/myProject/js.svg" alt="" srcset="">
+                            
+
                              {{end}}
-                             {{if eq $dataa "typescript"}}
+
+                             {{if eq $dataa "Typescript"}}
                              <img src="./img/myProject/typescript.png" alt="" srcset="">
+                            
+
                             {{end}}
                             </a>
                             {{end}}
 
                           </div>
+                         
                         </div>
                         <p>Comming soon</p>
                       </div>
