@@ -8,6 +8,7 @@ import (
 	"html/template"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/gorilla/sessions"
 	"github.com/labstack/echo-contrib/session"
@@ -18,8 +19,8 @@ import (
 type Project struct {
 	ID int
 	Name      string
-	StartDate string
-	EndDate   string
+	StartDate time.Time
+	EndDate   time.Time
 	Textareas string
 	DataTech  []string
 	Image string
@@ -96,7 +97,7 @@ func home(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	dataProject, errProject := config.Conn.Query(context.Background(),"SELECT tb_projects.id, tb_projects.name, tb_projects.description, tb_projects.technologies, tb_projects.image, tb_projects.author_id, tb_users.name FROM public.tb_projects INNER JOIN tb_users on tb_projects.author_id = tb_users.id")
+	dataProject, errProject := config.Conn.Query(context.Background(),"SELECT tb_projects.id, tb_projects.name, tb_projects.start_date, tb_projects.end_date, tb_projects.description, tb_projects.technologies, tb_projects.image, tb_projects.author_id, tb_users.name FROM public.tb_projects INNER JOIN tb_users on tb_projects.author_id = tb_users.id")
 
 	if errProject != nil {
 		return c.JSON(http.StatusInternalServerError, errProject.Error())
@@ -107,21 +108,18 @@ func home(c echo.Context) error {
 	for dataProject.Next() {
 		var bucket = Project{}
 
-
-
-		err := dataProject.Scan(&bucket.ID, &bucket.Name, &bucket.Textareas, &bucket.DataTech, &bucket.Image, &bucket.AuthorId, 
+		err := dataProject.Scan(&bucket.ID, &bucket.Name, &bucket.StartDate, &bucket.EndDate, &bucket.Textareas, &bucket.DataTech, &bucket.Image, &bucket.AuthorId, 
 			&bucket.Username)
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, err.Error())
 		}
 
 
+
 		newDataProject = append(newDataProject, bucket)
 
 
 	}
-
-
 
 
 	dataFlash := map[string]interface{}{
@@ -172,20 +170,16 @@ func myProject(c echo.Context) error {
 
 	for dataProject.Next() {
 		var bucket = Project{}
-		
 
+		
 		err := dataProject.Scan(&bucket.ID, &bucket.Name, &bucket.Textareas, &bucket.DataTech, &bucket.Image, &bucket.AuthorId, &bucket.Username )
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, err.Error())
 		}
 
-
 		newDataProject = append(newDataProject, bucket)
 
-
 	}
-
-	
 
 	dataFlash := map[string]interface{}{
 		"flashMessage" : sess.Values["message"],
@@ -204,52 +198,24 @@ func myProject(c echo.Context) error {
 }
 
 
-
-// func convertDate(EndTime, StartTime string) string {
-// 	timeEnd, err := time.Parse(time.DateOnly, EndTime)
-// 	if err != nil {
-// 		return "Invalid EndTime format"
-// 	}
-
-// 	timeStart, err := time.Parse(time.DateOnly, StartTime)
-// 	if err != nil {
-// 		return "Invalid StartTime format"
-// 	}
-
-// 	timeDistance := timeEnd.Sub(timeStart)
-
-// 	distanceSecond := int(timeDistance.Seconds())
-// 	distanceMinute := distanceSecond / 60
-// 	distanceHour := distanceMinute / 60
-// 	distanceDay := distanceHour / 24
-// 	distanceWeek := distanceDay / 7
-// 	distanceMonth := distanceDay / 30
-// 	distanceYear := distanceMonth / 12
-
-// 	if distanceHour >= 24 && distanceDay <= 7 {
-// 		return fmt.Sprintf("%d day of durations", distanceDay)
-// 	} else if distanceDay >= 7 && distanceWeek <= 4 {
-// 		return fmt.Sprintf("%d Weeks of durations", distanceWeek)
-// 	} else if distanceWeek >= 4 && distanceMonth <= 12 {
-// 		return fmt.Sprintf("%d months of durations", distanceMonth)
-// 	} else if distanceMonth >= 12 {
-// 		return fmt.Sprintf("%d years of durations", distanceYear)
-// 	}
-
-// 	return "Invalid duration"
-// }
-
-
-
-
-
 func testimonial(c echo.Context) error {
-	template, err := template.ParseFiles(".views/testimonial.html")
+	template, err := template.ParseFiles("views/testimonial.html")
+	sess, errSess := session.Get("bersesion", c)
+
+	if errSess != nil {
+		return c.JSON(http.StatusInternalServerError, err.Error())
+	}
 
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
-	return template.Execute(c.Response(), nil)
+
+	dataFlash := map[string]interface{}{
+		"flashMessage" : sess.Values["message"],
+		"test" : sess.Values["name"],
+
+	}
+	return template.Execute(c.Response(), dataFlash)
 }
 
 
@@ -297,12 +263,14 @@ func getDataById(id int)(Project, error)  {
 	var data = Project{}
 	
 
-	query := "SELECT id, name, description, technologies, image FROM tb_projects WHERE id=$1"
+	// query := "SELECT id, name, start_date, end_date, description, technologies, image FROM tb_projects WHERE id=$1"
 
-	dataProject := config.Conn.QueryRow(context.Background(),query, id)
+	query2 := "SELECT tb_projects.id, tb_projects.name, tb_projects.start_date, tb_projects.end_date, tb_projects.description, tb_projects.technologies, tb_projects.image, tb_projects.author_id, tb_users.name FROM public.tb_projects INNER JOIN tb_users on tb_projects.author_id = tb_users.id WHERE tb_projects.id=$1"
+
+	dataProject := config.Conn.QueryRow(context.Background(),query2, id)
 
 	
-	err := dataProject.Scan(&data.ID, &data.Name,&data.Textareas, &data.DataTech, &data.Image )
+	err := dataProject.Scan(&data.ID, &data.Name,&data.StartDate, &data.EndDate, &data.Textareas, &data.DataTech, &data.Image, &data.AuthorId, &data.Username)
 	
 		
 
@@ -316,21 +284,38 @@ func detailProject(c echo.Context) error {
 
 	idToInt, _ := strconv.Atoi(id)
 
-	template, err := template.ParseFiles("./views/detailProject.html")
+	template, err := template.ParseFiles("./views/detailProject2.html")
 
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
 	
+	sess, errSess := session.Get("bersesion", c)
+	if errSess != nil {
+		return c.JSON(http.StatusInternalServerError, err.Error())
+	}
 
 	data, err := getDataById(idToInt)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
+	
+	dataFlash := map[string]interface{}{
+		"flashMessage" : sess.Values["message"],
+		"test" : sess.Values["name"],
 
-	return template.Execute(c.Response(), data)
+	}
+
+
+	data2 := map[string]interface{}{
+		"projects": data,
+		"dataFlash" : dataFlash,
+	}
+
+
+	return template.Execute(c.Response(), data2)
 }
 
 

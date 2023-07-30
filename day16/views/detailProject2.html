@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Project</title>
+    <link rel="stylesheet" href="/css/detailProject2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg sticky-top bg-body-tertiary pt-0 ">
+        <div class="container-fluid p-2 border border-1">
+          <a class="navbar-brand" href="#">
+            <img src="/img/logo.png" alt="logo">
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-4 me-auto mb-2 mb-lg-0">
+
+              <li class="nav-item mx-3">
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
+              </li>
+
+              <li class="nav-item mx-3">
+                <a class="nav-link" href="/myproject">My Project</a>
+              </li>
+              
+              <li class="nav-item mx-3">
+                <a class="nav-link" href="/testimonial">Testimonials</a>
+              </li>
+
+            </ul>
+
+            {{if .dataFlash.test}}
+            <form class="auth" action="/logout" method="post">
+              <a class="btn btn-outline-dark">"Halo tuan, {{.dataFlash.test}}"</a>
+              <button type="submit" class="btn btn-danger">Logout</button>
+            </form>
+            {{else}}
+            <div class="auth">
+              <a href="/form-register" class="btn btn-primary">Register</a>
+              <a href="/form-login" class="btn btn-danger">Login</a>
+            </div>
+            {{end}}
+           
+        
+              <a href="/contact" class="btn btn-outline-dark mx-4">Contact</a>
+            
+          </div>
+        </div>
+      </nav>
+
+      <div class="container">
+        <div class="container-title m-3 text-center" >
+            <h1>{{.projects.Name}}</h1>
+        </div>
+        <div class="container">
+            <div class="row border border-1">
+              <div class="col-7 border border-1">
+                <img src="/uploads/{{.projects.Image}}" alt="image-project" style="width:100%;">
+              </div>
+              <div class="col-5">
+                <div class="d-flex flex-column p-3">
+                    <div class="d-flex duration-title" style="font-size: x-large;">
+                        <p class="m-2"><i class="fa fa-calendar"></i></p>
+                        <p class="m-2">Duration</p>
+                    </div>
+                    <div class="duration" style="background-color: #cae4ed;">
+                        <div class="duration-start">
+                            <p>{{.projects.StartDate}}</p>
+                        </div>
+                        <div class="duration-end">
+                            <p>{{.projects.EndDate}}</p>
+                        </div>
+                    </div>
+
+                    <div class="tech mt-3">
+                        <div class="d-flex tech-title" style="font-size: x-large;">
+                            <p><i class="fa fa-laptop"></i></p>
+                            <p>Technologies</p> 
+                        </div>
+                        <div class="d-flex flex-wrap w-50 tech-item" style="background-color: #cae4ed;">
+                            {{ range $index, $dataa := .projects.DataTech}}
+
+                            {{if eq $dataa "NodeJs"}}
+                            <div class="item-image d-flex w-50">
+                                <p class="m-1"><i class="fa-brands fa-node-js"></i></p>
+                                <p class="m-1">Node js</p>
+                            </div>
+                            {{end}}
+
+                            {{if eq $dataa "ReactJs"}}
+                            <div class="item-image d-flex w-50">
+                                <p class="m-1"><i class="fa-brands fa-react"></i></p>
+                                <p class="m-1">React Js</p>
+                            </div>
+                            {{end}}
+
+                            {{if eq $dataa "Javascript"}}
+                            <div class="item-image d-flex w-50">
+                                <p class="m-1"><i class="fa-brands fa-square-js"></i></p>
+                                <p class="m-1">Javascript</p>
+                            </div>
+                            {{end}}
+
+                            {{if eq $dataa "Typescript"}}
+                            <div class="item-image d-flex w-50">
+                                <p class="m-1"><i class="fa-solid fa-font-awesome"></i></p>
+                                <p class="m-1">Typescript</p>
+                            </div>
+                            {{end}}
+
+                            {{end}}
+                        </div>
+                    </div>
+                    <div class="d-flex mt-3 author-title" style="font-size: x-large;">
+                        <p><i class="fa fa-pencil"></i></p>
+                        <p>Author</p>
+                    </div>
+                    <p>{{.projects.Username}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container container-article mt-3">
+            <article class="container">
+                {{.projects.Textareas}}
+            </article>
+          </div>
+      </div>
+
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</body>
+</html>

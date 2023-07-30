@@ -148,3 +148,8 @@ p {
     text-indent: 70px;
     text-align: justify;
 }
+
+.images-logo{
+    width: 10px;
+    background-color: tomato;
+}

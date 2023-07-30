@@ -53,6 +53,12 @@
         </div>
       </nav>
       <div class="container-profile">
+        {{if .flashMessage}}
+       <div class="container w-50 alert alert-primary" role="alert">
+         {{.flashMessage}}
+       </div>
+       {{end}}
+
           <div class="container text-center mt-4">
             <div class="row align-items-start container-body">
               <div class="col align-self-center ">
@@ -99,18 +105,19 @@
       </div>
 
       <div class="container-myproject">
-        <h1 class="text-center mt-5 mb-4">My Project</h1>
+        <h1 class="text-center mt-5 mb-4">Our Project</h1>
           <div class="container text-center">
             <div class="row m-2">
               {{ range $index, $project := .projects }}
               <div class="col mb-4">
                 <div class="card" style="width: 24rem;">
-                  <p class="position-absolute m-2" style="font-size: small;">Author : {{$project.Username}}</p>
+                  <p class="position-absolute m-2 p-1 bg-primary text-light">Author : {{$project.Username}}</p>
                     <img class="card-image" src="./uploads/{{$project.Image}}" class="card-img-top" alt="...">
                     <div class="card-body">
                       <a href="/detailproject/{{$project.ID}}" style="text-decoration: none;"><h3 class="card-title">{{$project.Name}}</h3></a>
               
                       <p class="card-text">{{$project.Textareas}}</p>
+                      <p>{{$project.StartDate}}</p>
 
                        {{ range $index, $dataa := $project.DataTech }}
                             <a href="#" class="btn">
