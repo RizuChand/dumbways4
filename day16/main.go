@@ -21,6 +21,7 @@ type Project struct {
 	Name      string
 	StartDate time.Time
 	EndDate   time.Time
+	Duration float64
 	Textareas string
 	DataTech  []string
 	Image string
@@ -86,6 +87,10 @@ func main() {
 	
 }
 
+func CalculateDateDifference(start, end time.Time) time.Duration {
+	return end.Sub(start)
+}
+
 func home(c echo.Context) error {
 	template, err := template.ParseFiles("./views/index.html")
 	sess, errSess := session.Get("bersesion",c)
@@ -107,15 +112,18 @@ func home(c echo.Context) error {
 
 	for dataProject.Next() {
 		var bucket = Project{}
-
+		
+		
 		err := dataProject.Scan(&bucket.ID, &bucket.Name, &bucket.StartDate, &bucket.EndDate, &bucket.Textareas, &bucket.DataTech, &bucket.Image, &bucket.AuthorId, 
 			&bucket.Username)
-		if err != nil {
-			return c.JSON(http.StatusInternalServerError, err.Error())
-		}
+			if err != nil {
+				return c.JSON(http.StatusInternalServerError, err.Error())
+			}
+			
+		duration := CalculateDateDifference(bucket.StartDate, bucket.EndDate).Hours()/24
 
-
-
+		bucket.Duration = duration
+		
 		newDataProject = append(newDataProject, bucket)
 
 
@@ -263,8 +271,6 @@ func getDataById(id int)(Project, error)  {
 	var data = Project{}
 	
 
-	// query := "SELECT id, name, start_date, end_date, description, technologies, image FROM tb_projects WHERE id=$1"
-
 	query2 := "SELECT tb_projects.id, tb_projects.name, tb_projects.start_date, tb_projects.end_date, tb_projects.description, tb_projects.technologies, tb_projects.image, tb_projects.author_id, tb_users.name FROM public.tb_projects INNER JOIN tb_users on tb_projects.author_id = tb_users.id WHERE tb_projects.id=$1"
 
 	dataProject := config.Conn.QueryRow(context.Background(),query2, id)
@@ -273,6 +279,9 @@ func getDataById(id int)(Project, error)  {
 	err := dataProject.Scan(&data.ID, &data.Name,&data.StartDate, &data.EndDate, &data.Textareas, &data.DataTech, &data.Image, &data.AuthorId, &data.Username)
 	
 		
+	duration := CalculateDateDifference(data.StartDate, data.EndDate).Hours()/24
+
+	data.Duration = duration
 
 	return data, err
 }
@@ -300,7 +309,6 @@ func detailProject(c echo.Context) error {
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
-
 	
 	dataFlash := map[string]interface{}{
 		"flashMessage" : sess.Values["message"],

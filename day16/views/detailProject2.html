@@ -70,21 +70,25 @@
                         <p class="m-2"><i class="fa fa-calendar"></i></p>
                         <p class="m-2">Duration</p>
                     </div>
-                    <div class="duration" style="background-color: #cae4ed;">
+                    <div class="duration p-2" style="background-color: #cae4ed;">
                         <div class="duration-start">
-                            <p>{{.projects.StartDate}}</p>
+                            <p>Start From : {{.projects.StartDate}}</p>
                         </div>
                         <div class="duration-end">
-                            <p>{{.projects.EndDate}}</p>
+                            <p>End From : {{.projects.EndDate}}</p>
                         </div>
-                    </div>
+                      </div>
+                      <div class="d-flex mt-3 duration-time">
+                        <p class="m-1"><i class="fa-solid fa-clock"></i></p>
+                          <p class="m-1">Duration : {{.projects.Duration}} Days</p>
+                      </div>
 
                     <div class="tech mt-3">
                         <div class="d-flex tech-title" style="font-size: x-large;">
                             <p><i class="fa fa-laptop"></i></p>
                             <p>Technologies</p> 
                         </div>
-                        <div class="d-flex flex-wrap w-50 tech-item" style="background-color: #cae4ed;">
+                        <div class="d-flex flex-wrap w-50 tech-item p-1" style="background-color: #cae4ed;">
                             {{ range $index, $dataa := .projects.DataTech}}
 
                             {{if eq $dataa "NodeJs"}}

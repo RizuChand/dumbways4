@@ -131,7 +131,7 @@
                         <img  class="card-image" src="./uploads/{{$project.Image}}" class="card-img-top" alt="...">
                         <div class="card-body">
                           <a href="/detailproject/{{$project.ID}}" style="text-decoration: none; color: black;"><h5 class="card-title">{{$project.Name}}</h5></a>
-                          <p class="card-text">{{$project.Textareas}}</p>
+                          <p class="card-text" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{$project.Textareas}}</p>
 
                           <div class="container-tech">
                             {{ range $index, $dataa := $project.DataTech }}
